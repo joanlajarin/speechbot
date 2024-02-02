@@ -26,6 +26,12 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+.span-voice {
+    color: #677489;
+}
+.span-speed {
+    color: #677489;
+}
 .title {
     font-size: 20px;
 }
