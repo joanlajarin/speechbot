@@ -25,23 +25,25 @@
                     <span class="span-settings">Settings</span>
                     <div class="btns-voice">
                         <span class="span-voice">Voice</span>
-                        <select class="select">
+                        <select id="select-language" class="select">
                             <option value="value-language-1">en-US</option>
                         </select>
-                        <select class="select">
+                        <select id="select-voice" class="select">
                             <option value="value-voice-1">Albert</option>
                         </select>
                     </div>
                     <div class="btns-speed">
                         <span class="span-speed">Speed</span>
-                        <button class="btn-speed">0.5x</button>
-                        <button class="btn-speed">0.75x</button>
-                        <button class="btn-speed">1x</button>
-                        <button class="btn-speed">1.5x</button>
+                        <button value="0.5" id="btn-speed-05x" class="btn-speed">0.5x</button>
+                        <button value="0.75" id="btn-speed-075x" class="btn-speed">0.75x</button>
+                        <button value="1" id="btn-speed-1x" class="btn-speed">1x</button>
+                        <button value="1.5" id="btn-speed-15x" class="btn-speed">1.5x</button>
                     </div>
                 </div>                    
                 <button class="btn-text-to-speech">Text to Speech</button>
             </main>
         </section>
+        
     </body>
+    <script type="text/javascript" src="script.js"></script>
 </html>
