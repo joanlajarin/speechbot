@@ -25,17 +25,31 @@ function obtainListOfLanguages(){
 }
 //obtain list of voices for the language default = 'en US'
 function obtainListOfVoicesLanguage() {
+
     voicesDefault = voices.filter(function(voice) {
         return voice.lang.startsWith('en-US') 
     })
-    let i  = 0
-    voicesDefault.map(
-        function (voice) {
-            fillVoiceSettings(voice.name, i)
-            i++
-        }
-    )
-    return voicesDefault
+    console.log("voicesDefault")
+    console.log(voicesDefault)
+    if(voicesDefault.length > 0) {
+        let i  = 0
+        voicesDefault.map(
+            function (voice) {
+                fillVoiceSettings(voice.name, i)
+                i++
+            }
+        )
+        return voicesDefault
+    } else {
+        let i  = 0
+        voices.map(
+            function (voice) {
+                fillVoiceSettings(voice.name, i)
+                i++
+            }
+        )
+        return voices
+    }
 }
 
 function captureData(){
@@ -63,19 +77,24 @@ function populateVoiceList() {
 }  
 
 const listLanguage = document.getElementById("select-language")
+console.log(listLanguage)
 const listVoice = document.getElementById("select-voice")
 //when clicking one language of list botain list of voices for the language 
 listLanguage.addEventListener("change", listVoicesOfLanguage)
 
 function listVoicesOfLanguage() {
     let selectedOptionText = listLanguage.options[listLanguage.selectedIndex].text
+    console.log(selectedOptionText)
+    console.log(voices)
     voices = synth.getVoices().filter(function(voice) {
         return voice.lang.startsWith(selectedOptionText)
     })    
+    console.log(voices)
     let i  = 0
     listVoice.innerHTML = ""
     voices.map( 
         function(voice) {
+            console.log(voice)
             fillVoiceSettings(voice.name, i)
             i++
         }
