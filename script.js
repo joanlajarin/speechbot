@@ -10,7 +10,6 @@ let elSelected = false
 const btnTxtToSpeech = document.querySelector(".btn-text-to-speech")
 btnTxtToSpeech.addEventListener("click",textToSpeech)
 
-//obtain list of languages
 function obtainListOfLanguages(){
     voices = synth.getVoices()
     let languagesVoices = []
@@ -23,16 +22,13 @@ function obtainListOfLanguages(){
         }
     }
 }
-//obtain list of voices for the language default = 'en US'
 function obtainListOfVoicesLanguage() {
 
     voicesDefault = voices.filter(function(voice) {
         return voice.lang.startsWith('en-US') 
     })
-    console.log("voicesDefault")
-    console.log(voicesDefault)
+    let i  = 0
     if(voicesDefault.length > 0) {
-        let i  = 0
         voicesDefault.map(
             function (voice) {
                 fillVoiceSettings(voice.name, i)
@@ -41,7 +37,6 @@ function obtainListOfVoicesLanguage() {
         )
         return voicesDefault
     } else {
-        let i  = 0
         voices.map(
             function (voice) {
                 fillVoiceSettings(voice.name, i)
