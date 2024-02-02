@@ -1,57 +1,102 @@
 
-let text = "QUIERO MEDIO POLLO NO ME PONGAS UN POLLO ENTERO ESPAVILADO. ESTE POLLO ESTA SABROSO"
+let text = ""
 let language = "en-US"
 let voice = "Albert"
-let speed = "0.5"
+let speed = "1"
 const synth = window.speechSynthesis;
 let voices
+let elSelected = false
 
 const btnTxtToSpeech = document.querySelector(".btn-text-to-speech")
 btnTxtToSpeech.addEventListener("click",textToSpeech)
 
+//obtain list of languages
+function obtainListOfLanguages(){
+    voices = synth.getVoices()
+    let languagesVoices = []
+    if(voices.length > 0) {
+        for(let i= 0; i < voices.length;i++) {
+            if(!languagesVoices.includes(voices[i].lang)) {
+                languagesVoices.push(voices[i].lang)
+                fillLanguageSettings(voices[i].lang)
+            }
+        }
+    }
+}
+//obtain list of voices for the language default = 'en US'
+function obtainListOfVoicesLanguage() {
+    voicesDefault = voices.filter(function(voice) {
+        return voice.lang.startsWith('en-US') 
+    })
+    let i  = 0
+    voicesDefault.map(
+        function (voice) {
+            fillVoiceSettings(voice.name, i)
+            i++
+        }
+    )
+    return voicesDefault
+}
+
 function captureData(){
     const textToSpeech = document.querySelector(".text-area")
-    console.log("A " + textToSpeech.value)
-
     text = textToSpeech.value
+    voice = listVoice.value
 }
+
 function textToSpeech() {
     captureData()
+    speechSynthesis.cancel()
     let utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = speed
+    utterance.voice = voices[voice]
     speechSynthesis.speak(utterance);
 }
+
 synth.addEventListener("voiceschanged", populateVoiceList)
 
 function populateVoiceList() {
-    voices = synth.getVoices()
-    console.log(voices)
-    if(voices.length > 0) {
-        console.log("array con datos")
-        let lang
-        let name
-        for(let i= 0; i < voices.length;i++) {
 
-            if(lang != voices[i].lang) {
-                lang = voices[i].lang
-                fillLanguageSettings(lang, i)
-            }
-            name = voices[i].name
-            fillVoiceSettings(name, i)
-        }
-    } else {
-        console.log("array vacia")
-    }
+    voices = synth.getVoices()
+    obtainListOfLanguages()
+    voices = obtainListOfVoicesLanguage()
 }  
 
 const listLanguage = document.getElementById("select-language")
 const listVoice = document.getElementById("select-voice")
+//when clicking one language of list botain list of voices for the language 
+listLanguage.addEventListener("change", listVoicesOfLanguage)
 
-function fillLanguageSettings(language, ind) {
-    listLanguage.innerHTML += `<option value="value-language-` + ind + `">` + language +`</option>`
+function listVoicesOfLanguage() {
+    let selectedOptionText = listLanguage.options[listLanguage.selectedIndex].text
+    voices = synth.getVoices().filter(function(voice) {
+        return voice.lang.startsWith(selectedOptionText)
+    })    
+    let i  = 0
+    listVoice.innerHTML = ""
+    voices.map( 
+        function(voice) {
+            fillVoiceSettings(voice.name, i)
+            i++
+        }
+    )
 }
+listVoice.addEventListener("change",captureVoice )
+
+function fillLanguageSettings(language) {
+    language === 'en-US' ? 
+       listLanguage.innerHTML += `<option selected  value="` + language + `">` + language +`</option>`
+    : 
+    listLanguage.innerHTML += `<option  value="` + language + `">` + language +`</option>`
+}
+
+function captureVoice() {
+    const selectedIndex = listVoice.selectedIndex
+    voice = selectedIndex
+}
+
 function fillVoiceSettings(voice, ind) {
-    listVoice.innerHTML += `<option value="value-voice-` + ind + `">` + voice +`</option>`
+    listVoice.innerHTML += `<option value="` + ind + `">` + voice +`</option>`
 }
 
 const btnsSpeed05x = document.getElementById("btn-speed-05x")
@@ -64,6 +109,18 @@ btnsSpeed075x.addEventListener("click", (e) => changeSpeed(e))
 btnsSpeed1x.addEventListener("click", (e) => changeSpeed(e))
 btnsSpeed15x.addEventListener("click", (e) => changeSpeed(e))
 
+
 function changeSpeed(e) {
-    speed = e.currentTarget.getAttribute("value")
+    
+    if(elSelected === true){
+        const btnSelected = document.querySelector(".btn-speed-selected")
+        btnSelected.classList.remove("btn-speed-selected")
+        btnSelected.classList.add("btn-speed")  
+    } else {
+        elSelected = true
+    }
+    let el = e.currentTarget
+    speed = el.getAttribute("value") 
+    el.classList.remove("btn-speed")
+    el.classList.add("btn-speed-selected")
 }
