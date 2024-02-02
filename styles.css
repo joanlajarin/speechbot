@@ -10,7 +10,7 @@ body {
     color: #E3E8EF;
 }
 .hero-image {
-    height: 100%;
+    height: 100vh;
     width: auto;
 }
 .section-main {
@@ -140,7 +140,10 @@ body {
     padding: 20px;
     margin-top: 62px;
 }
-
+.hero-landing {
+    height: 100vh;
+    width: auto;
+}
 @media (max-width: 1279px) { 
     .hero-landing {
         display: none;

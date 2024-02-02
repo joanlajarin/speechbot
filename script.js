@@ -2,7 +2,7 @@
 let text = ""
 let language = "en-US"
 let voice = "Albert"
-let speed = "1"
+let speed = "0.5"
 const synth = window.speechSynthesis;
 let voices
 let elSelected = false
@@ -125,14 +125,11 @@ btnsSpeed15x.addEventListener("click", (e) => changeSpeed(e))
 
 
 function changeSpeed(e) {
-    
-    if(elSelected === true){
-        const btnSelected = document.querySelector(".btn-speed-selected")
-        btnSelected.classList.remove("btn-speed-selected")
-        btnSelected.classList.add("btn-speed")  
-    } else {
-        elSelected = true
-    }
+    console.log("hola?")
+    const btnSelected = document.querySelector(".btn-speed-selected")
+    btnSelected.classList.remove("btn-speed-selected")
+    btnSelected.classList.add("btn-speed")  
+
     let el = e.currentTarget
     speed = el.getAttribute("value") 
     el.classList.remove("btn-speed")
