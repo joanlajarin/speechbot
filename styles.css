@@ -32,7 +32,10 @@ body {
 .logo {
     height: 40px;
 }
-
+.main {
+    display: flex;
+    flex-direction: column;
+}
 .div-text-area {
     display: flex;
     flex-direction: column;
@@ -126,4 +129,20 @@ body {
     background: linear-gradient(to right, #6326A2, #263FA9);
     padding: 20px;
     margin-top: 62px;
+}
+
+@media (max-width: 1280px) { 
+    .hero-landing {
+        display: none;
+    }
+    .section-main {
+        width: -webkit-fill-available;
+    }
+    .main {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-evenly;
+        margin-bottom: 80px;
+    }
 }
